@@ -5,19 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Text to PDF Converter</title>
   <!-- Include Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 w-full h-screen flex flex-col justify-center items-center">
-  <div class="bg-white shadow-md rounded-lg p-6 w-72 text-center">
-    <h1 class="text-2xl text-gray-800 font-bold mb-4">Text to PDF Converter</h1>
-    <p class="text-sm text-gray-600 mb-6">Right-click on a webpage and select "Convert to PDF" to generate a PDF of the page text.</p>
+<body class="bg-gray-100 flex flex-col justify-center items-center min-h-screen p-4">
+
+  <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm text-center">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Text to PDF Converter</h1>
+    <p class="text-sm text-gray-600 mb-6">
+      Right-click on a webpage and select <strong>"Convert to PDF"</strong> to generate a PDF of the page text.
+    </p>
+    
     <a 
       href="http://localhost:5000/" 
       target="_blank" 
-      class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-200"
+      class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-200"
     >
       View All PDFs
     </a>
+
+    <!-- Optional: Section to display generated PDFs -->
+    <div id="pdfList" class="mt-6 hidden">
+      <h2 class="text-lg font-semibold text-gray-700 mb-2">Generated PDFs:</h2>
+      <ul id="pdfLinks" class="text-sm text-blue-600 underline cursor-pointer"></ul>
+    </div>
   </div>
+
+  <script>
+    // Example: Dynamically add PDF links (if fetched from backend)
+    const pdfFiles = []; // Replace with actual fetched data
+    const pdfListContainer = document.getElementById("pdfList");
+    const pdfLinks = document.getElementById("pdfLinks");
+
+    if (pdfFiles.length > 0) {
+      pdfListContainer.classList.remove("hidden");
+      pdfFiles.forEach(pdf => {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${pdf.url}" target="_blank">${pdf.name}</a>`;
+        pdfLinks.appendChild(li);
+      });
+    }
+  </script>
+
 </body>
 </html>
